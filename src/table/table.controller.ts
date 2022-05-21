@@ -14,7 +14,7 @@ export class TableController {
   }
 
   @Post()
-  create(@Body() createTableDto: CreateTableDto) {
-    return this.tableService.create(createTableDto);
+  create(@Body() dto: CreateTableDto) {
+    return this.tableService.create(dto);
   }
 }
