@@ -11,14 +11,29 @@ import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UserService {
+  private userSelect = {
+    id: true,
+    nickname: true,
+    name: true,
+    password: false,
+    image: true,
+    createdAt: true,
+    updatedAt: true,
+  };
+
   constructor(private readonly prisma: PrismaService) {}
 
   findAll(): Promise<User[]> {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({
+      select: this.userSelect,
+    });
   }
 
   async findById(id: string): Promise<User> {
-    const record = await this.prisma.user.findUnique({ where: { id } });
+    const record = await this.prisma.user.findUnique({
+      where: { id },
+      select: this.userSelect,
+    });
 
     if (!record) {
       throw new NotFoundException(`Registro com o ID '${id}' não encontrado.`);
@@ -43,7 +58,9 @@ export class UserService {
       password: await bcrypt.hash(dto.password, 10),
     };
 
-    return this.prisma.user.create({ data }).catch(this.handleError);
+    return this.prisma.user
+      .create({ data, select: this.userSelect })
+      .catch(this.handleError);
   }
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
@@ -67,6 +84,7 @@ export class UserService {
       .update({
         where: { id },
         data,
+        select: this.userSelect,
       })
       .catch(this.handleError);
   }
