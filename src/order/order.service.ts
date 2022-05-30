@@ -21,9 +21,13 @@ export class OrderService {
         },
       },
       products: {
-        connect: createOrderDto.products.map((productId) => ({
-          id: productId,
-        })),
+        createMany: {
+          data: createOrderDto.products.map((CreateOrderProductDto) => ({
+            productId: CreateOrderProductDto.productId,
+            quatity: CreateOrderProductDto.quantity,
+            description: CreateOrderProductDto.description,
+          })),
+        },
       },
     };
 
@@ -44,7 +48,13 @@ export class OrderService {
           },
           products: {
             select: {
-              name: true,
+              quatity: true,
+              description: true,
+              product: {
+                select: {
+                  name: true,
+                },
+              },
             },
           },
         },
@@ -91,11 +101,15 @@ export class OrderService {
         },
         products: {
           select: {
-            id: true,
-            name: true,
-            price: true,
-            image: true,
-            description: true,
+            product: {
+              select: {
+                id: true,
+                name: true,
+                price: true,
+                image: true,
+                description: true,
+              },
+            },
           },
         },
       },
