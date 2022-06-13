@@ -5,7 +5,7 @@ export class LoginResponseDto {
   @ApiProperty({
     description: 'JWT gerado pelo login',
     example:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6Im5pbG94cCIsImlhdCI6MTY1Mzg4MzM4NywiZXhwIjoxNjUzOTY5Nzg3fQ.2O0BCUH5e6Qau5fYWv_vWfNjnWpNLnpHHz_1ZGBjZf4',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6Im5pbG94cCIsImlhdCI6MTY1NTA3NzQ2MSwiZXhwIjoxNjU1MTYzODYxfQ.FOC30ggQNYIcaVlXliz_lwwm0OTnX_LA5K8F41aKpGo',
   })
   token: string;
 
